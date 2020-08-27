@@ -1,0 +1,14 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: service-test
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.200.128:8848
+  redis:
+    host: 192.168.200.128
+    port: 6379
+    database: 0
+myName: local

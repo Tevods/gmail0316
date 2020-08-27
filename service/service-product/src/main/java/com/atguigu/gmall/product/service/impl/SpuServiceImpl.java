@@ -7,9 +7,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SpuServiceImpl implements SpuService {
@@ -92,5 +95,23 @@ public class SpuServiceImpl implements SpuService {
         queryWrapper.eq("spu_id",spuId);
         List<SpuImage> spuImageList = spuImageMapper.selectList(queryWrapper);
         return spuImageList;
+    }
+
+    @Override
+    public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) {
+        List<SpuSaleAttr> list = spuSaleAttrMapper.selectSpuSaleAttrListCheckBySku(skuId,spuId);
+        return list;
+    }
+
+    @Override
+    public Map<String,String> getSkuValueIdsMap(Long spuId) {
+        List<Map<String,Object>> skuValueMapList = spuSaleAttrValueMapper.selectSkuValueIdsMap(spuId);
+        Map<String,String> map = new HashMap<>();
+        for (Map<String, Object> stringStringMap : skuValueMapList) {
+            String valueIds = stringStringMap.get("value_ids").toString();
+            String skuId = stringStringMap.get("sku_id").toString();
+            map.put(valueIds,skuId);
+        }
+        return map;
     }
 }

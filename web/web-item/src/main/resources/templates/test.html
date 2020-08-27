@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        取值：<input th:value="${value}">
+        <br>
+        循环：<input type="text" th:each="str:${list}" th:value="${str}">
+        <br>
+        <div th:each="str:${list}">
+            <input th:value="${str}">
+        </div>
+        判断：
+        <br>
+        <input th:if="${1==1}" th:value="存在">
+        <br>
+        <input th:if="${num == 1}" th:value="相等">
+        与js的交互：
+        <br>
+        <a th:href="'javascript:a(123);'">点击</a>
+        内嵌页：
+        <div>
+        </div>
+
+        <script type="text/javascript">
+            function a(num) {
+                alert(num);
+            }
+        </script>
+    </body>
+</html>

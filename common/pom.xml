@@ -16,6 +16,7 @@
     <modules>
         <module>common-util</module>
         <module>service-util</module>
+        <module>web-util</module>
     </modules>
 
     <dependencies>
@@ -51,13 +52,13 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
-<!--        &lt;!&ndash; 服务注册&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
-<!--        </dependency>-->
+        <!-- 服务注册-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
 
-<!--&lt;!&ndash;         服务配置&ndash;&gt;-->
+<!--        &lt;!&ndash; 服务配置 &ndash;&gt;-->
 <!--        <dependency>-->
 <!--        <groupId>org.springframework.cloud</groupId>-->
 <!--        <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>-->
