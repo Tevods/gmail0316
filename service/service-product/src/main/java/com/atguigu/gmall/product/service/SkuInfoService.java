@@ -19,7 +19,6 @@ public interface SkuInfoService {
 
     void cancelSale(Long skuId);
 
-
     BigDecimal getPrice(String skuId);
 
     SkuInfo getSkuInfo(String skuId);

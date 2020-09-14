@@ -23,3 +23,9 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*Mapper.xml
+feign:
+  client:
+    config:
+      default:
+        readTimeout: 600000
+        connectTimeout: 600000

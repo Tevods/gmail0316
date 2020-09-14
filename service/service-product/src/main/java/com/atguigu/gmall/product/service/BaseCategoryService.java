@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.model.product.BaseCategory1;
 import com.atguigu.gmall.model.product.BaseCategory2;
 import com.atguigu.gmall.model.product.BaseCategory3;
@@ -16,4 +17,6 @@ public interface BaseCategoryService {
     List<BaseCategory3> getCategory3(String category2Id);
 
     BaseCategoryView getCategoryView(Long category3Id);
+
+    List<JSONObject> getBaseCategoryList();
 }

@@ -2,6 +2,7 @@ package com.atguigu.gmall.product.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.atguigu.gmall.common.cache.GmallCache;
+import com.atguigu.gmall.list.client.ListFeignClient;
 import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.product.mapper.*;
 import com.atguigu.gmall.product.service.SkuInfoService;
@@ -30,6 +31,8 @@ public class SkuInfoServiceImpl implements SkuInfoService {
     private SkuSaleAttrValueMapper skuSaleAttrValueMapper;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private ListFeignClient listFeignClient;
 
     @Override
     public void saveSkuInfo(SkuInfo skuInfo) {
@@ -69,6 +72,8 @@ public class SkuInfoServiceImpl implements SkuInfoService {
         skuInfo.setId(skuId);
         skuInfo.setIsSale(1);
         skuInfoMapper.updateById(skuInfo);
+        //将信息放到es中去
+        listFeignClient.onSale(skuId+"");
     }
 
     @Override
@@ -76,7 +81,9 @@ public class SkuInfoServiceImpl implements SkuInfoService {
         SkuInfo skuInfo = new SkuInfo();
         skuInfo.setId(skuId);
         skuInfo.setIsSale(0);
+        //将商品信息存放到es中去
         skuInfoMapper.updateById(skuInfo);
+        listFeignClient.cancelSale(skuId+"");
     }
 
 
@@ -99,7 +106,7 @@ public class SkuInfoServiceImpl implements SkuInfoService {
 
 
     public SkuInfo getSkuInfoForCache(String skuId) {
-        //TODO 使用Redis缓存处理数据
+        //TODO 熟悉Redis缓存
         System.out.println(Thread.currentThread().getName()+"访问sku详细信息");
         SkuInfo skuInfo = null;
         //先从缓存中读取数据

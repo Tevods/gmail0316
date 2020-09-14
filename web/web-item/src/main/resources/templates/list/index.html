@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-	<title>尚品汇 产品列表页</title>
-	 <link rel="icon" href="/img/favicon.ico">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title>尚品汇 产品列表页</title>
+    <link rel="icon" href="/img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/css/all.css" />
     <link rel="stylesheet" type="text/css" href="/css/pages-list.css" />
 
@@ -79,8 +79,8 @@
                     </ul>
                 </div>
                 <!--<div class="ext">-->
-                    <!--<a href="javascript:void(0);" class="sui-btn">多选</a>-->
-                    <!--<a href="javascript:void(0);">更多</a>-->
+                <!--<a href="javascript:void(0);" class="sui-btn">多选</a>-->
+                <!--<a href="javascript:void(0);">更多</a>-->
                 <!--</div>-->
             </div>
 
@@ -99,29 +99,29 @@
 
 
         </div>
-        <!--details-->
+        details
         <div class="details">
             <div class="sui-navbar">
-                <div class="navbar-inner filter">
-                    <ul class="sui-nav">
-                        <li th:class="${orderMap.type == '1' ? 'active': ''}">
-                            <a th:href="${urlParam}+'&order=1:'+${orderMap.sort == 'asc' ? 'desc' : 'asc'}">
-                                综合<span th:if="${orderMap.type == '1'}" th:text="${orderMap.sort == 'asc' ? '↑' : '↓'}"></span>
-                            </a>
-                        </li>
-                        <li th:class="${orderMap.type == '2' ? 'active': ''}">
-                            <a th:href="${urlParam}+'&order=2:'+${orderMap.sort == 'asc' ? 'desc' : 'asc'}">
-                                价格<span th:if="${orderMap.type == '2'}" th:text="${orderMap.sort == 'asc' ? '↑' : '↓'}"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">新品</a>
-                        </li>
-                        <li>
-                            <a href="#">评价</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="navbar-inner filter">
+            <ul class="sui-nav">
+            <li th:class="${orderMap.type == '1' ? 'active': ''}">
+            <a th:href="${urlParam}+'&order=1:'+${orderMap.sort == 'asc' ? 'desc' : 'asc'}">
+            综合<span th:if="${orderMap.type == '1'}" th:text="${orderMap.sort == 'asc' ? '↑' : '↓'}"></span>
+            </a>
+            </li>
+            <li th:class="${orderMap.type == '2' ? 'active': ''}">
+            <a th:href="${urlParam}+'&order=2:'+${orderMap.sort == 'asc' ? 'desc' : 'asc'}">
+            价格<span th:if="${orderMap.type == '2'}" th:text="${orderMap.sort == 'asc' ? '↑' : '↓'}"></span>
+            </a>
+            </li>
+            <li>
+            <a href="#">新品</a>
+            </li>
+            <li>
+            <a href="#">评价</a>
+            </li>
+            </ul>
+            </div>
             </div>
             <div class="goods-list">
                 <ul class="yui3-g">
@@ -154,28 +154,28 @@
                 </ul>
             </div>
             <div class="fr page">
-                <div class="sui-pagination pagination-large">
-                    <ul>
-                        <li class="prev" th:if="${pageNo != 1}">
-                            <a th:href="${urlParam}+'&pageNo='+${pageNo - 1}+'&order='+${searchParam.order}">上一页</a>
-                        </li>
-                        <li class="prev disabled" th:if="${pageNo == 1}">
-                            <a href="javascript:">上一页</a>
-                        </li>
+                <!--<div class="sui-pagination pagination-large">-->
+                <!--<ul>-->
+                <!--<li class="prev" th:if="${pageNo != 1}">-->
+                <!--<a th:href="${urlParam}+'&pageNo='+${pageNo - 1}+'&order='+${searchParam.order}">上一页</a>-->
+                <!--</li>-->
+                <!--<li class="prev disabled" th:if="${pageNo == 1}">-->
+                <!--<a href="javascript:">上一页</a>-->
+                <!--</li>-->
 
-                        <li th:each="i : ${#numbers.sequence(1,totalPages)}" th:class="${i == pageNo } ? 'active' : ''">
-                            <a th:href="${urlParam}+'&pageNo='+${i}+'&order='+${searchParam.order}"><span th:text="${i}"></span></a>
-                        </li>
+                <!--<li th:each="i : ${#numbers.sequence(1,totalPages)}" th:class="${i == pageNo } ? 'active' : ''">-->
+                <!--<a th:href="${urlParam}+'&pageNo='+${i}+'&order='+${searchParam.order}"><span th:text="${i}"></span></a>-->
+                <!--</li>-->
 
-                        <li class="next" th:if="${pageNo < totalPages}">
-                            <a th:href="${urlParam}+'&pageNo='+${pageNo + 1}+'&order='+${searchParam.order}">下一页</a>
-                        </li>
-                        <li class="next disabled" th:if="${pageNo == totalPages}">
-                            <a href="javascript:">下一页</a>
-                        </li>
-                    </ul>
-                    <div><span>共<span th:text="${totalPages }"></span>页&nbsp;</span><span></div>
-                </div>
+                <!--<li class="next" th:if="${pageNo < totalPages}">-->
+                <!--<a th:href="${urlParam}+'&pageNo='+${pageNo + 1}+'&order='+${searchParam.order}">下一页</a>-->
+                <!--</li>-->
+                <!--<li class="next disabled" th:if="${pageNo == totalPages}">-->
+                <!--<a href="javascript:">下一页</a>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--<div><span>共<span th:text="${totalPages }"></span>页&nbsp;</span><span></div>-->
+                <!--</div>-->
             </div>
         </div>
         <!--hotsale-->

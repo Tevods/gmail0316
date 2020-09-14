@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.gmall.product.mapper.SkuAttrValueMapper">
+
+    <select id="selectBaseAttrInfoListBySkuId" resultMap="baseAttrInfoMap">
+        SELECT
+            bai.id,
+            bai.attr_name,
+            bai.category_id,
+            bai.category_level,
+            bav.id attr_value_id,
+            bav.value_name,
+            bav.attr_id
+        FROM
+            base_attr_info bai
+            INNER JOIN base_attr_value bav ON bai.id = bav.attr_id
+            INNER JOIN sku_attr_value sav ON sav.value_id = bav.id
+        WHERE
+            sav.sku_id = #{skuId}
+    </select>
+    <resultMap id="baseAttrInfoMap" type="com.atguigu.gmall.model.product.BaseAttrInfo" autoMapping="true">
+        <id property="id" column="id"/>
+        <collection property="attrValueList" ofType="com.atguigu.gmall.model.product.BaseAttrValue" autoMapping="true">
+            <id property="id" column="attr_value_id"/>
+        </collection>
+    </resultMap>
+</mapper>
