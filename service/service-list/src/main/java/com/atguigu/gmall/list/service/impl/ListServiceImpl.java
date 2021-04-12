@@ -52,13 +52,6 @@ public class ListServiceImpl implements ListService {
     @Override
     public void onSale(String skuId) {
         Goods goods = new Goods();
-        goods.setId(Long.parseLong(skuId));
-        goodsElasticsearchRepository.delete(goods);
-    }
-
-    @Override
-    public void cancelSale(String skuId) {
-        Goods goods = new Goods();
         SkuInfo skuInfo = productFeignClient.getSkuInfo(skuId);
         BaseCategoryView baseCategoryView = productFeignClient.getCategoryView(skuInfo.getCategory3Id());
         List<BaseAttrInfo> baseAttrInfoList = productFeignClient.getBaseAttr(skuId);
@@ -95,14 +88,24 @@ public class ListServiceImpl implements ListService {
         goods.setCreateTime(new Date());
         //调用es的api插入数据
         goodsElasticsearchRepository.save(goods);
+
+
+    }
+
+    @Override
+    public void cancelSale(String skuId) {
+        Goods goods = new Goods();
+        goods.setId(Long.parseLong(skuId));
+        goodsElasticsearchRepository.delete(goods);
     }
 
     @Override
     public void hotScore(String skuId) {
         //Redis zset计数
         Long hotScore = 0L;
-        //缓存原来的热度值
+        // 通过访问每次增加一个热度值
         hotScore = redisTemplate.opsForZSet().incrementScore("hotScore","sku:" + skuId,1).longValue();
+        // 达到阈值同步到es中
         if (hotScore%10 == 0){
             //修改es
             Optional<Goods> goodsOptional = goodsElasticsearchRepository.findById(Long.parseLong(skuId));

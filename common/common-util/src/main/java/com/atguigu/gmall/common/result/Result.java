@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * 全局统一返回结果类 {数据查询}
- *
+ * 泛型的使用
  */
 @Data
 @ApiModel(value = "全局统一返回结果")

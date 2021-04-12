@@ -49,6 +49,7 @@ public class OrderApiController {
     @RequestMapping("auth/submitOrder")
     public Result submitOrder(@RequestBody OrderInfo order, String tradeNo, HttpServletRequest request){
         String userId = request.getHeader("userId");
+
         if (checkTradeNo(tradeNo,userId)){
             List<CartInfo> cartCheckedList = cartFeignClient.getCartCheckedList(userId);
             Result result = orderService.saveOrderInfoAndDetail(order,userId,cartCheckedList);
@@ -57,6 +58,11 @@ public class OrderApiController {
         return Result.fail();
     }
 
+    @RequestMapping("inner/saveSeckillOrder")
+    OrderInfo saveSeckillOrder(@RequestBody OrderInfo orderInfo){
+        OrderInfo orderInfoResult = orderService.save(orderInfo);
+        return orderInfoResult;
+    }
 
     @RequestMapping("inner/genTradeNo/{userId}")
     String genTradeNo(@PathVariable("userId") String userId){

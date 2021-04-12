@@ -8,6 +8,9 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -23,6 +26,8 @@ public class GmallCacheAspect {
 
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    RedissonClient redissonClient;
 
     //环绕通知使用的位置，为存在注解XXX的位置，具体需要看使用注解的是类还是方法
     @Around("@annotation(com.atguigu.gmall.common.cache.GmallCache)")
@@ -43,6 +48,8 @@ public class GmallCacheAspect {
             // 获得分布式锁
             String lockId = UUID.randomUUID().toString();
             Boolean lock = redisTemplate.opsForValue().setIfAbsent(key + ":lock", lockId, 10, TimeUnit.SECONDS);
+//            RLock lock1 = redissonClient.getLock(key + ":lock");
+//            lock1.lock(10,TimeUnit.SECONDS);
             if (lock){
                 try {
                     result = point.proceed(); //执行被代理的方法，访问数据库
@@ -89,6 +96,7 @@ public class GmallCacheAspect {
      */
     private Object cacheHit(MethodSignature signature,String key){
         String cache = (String) redisTemplate.opsForValue().get(key);
+
         if (StringUtils.isNotBlank(cache)){
             Class returnType = signature.getReturnType(); //获取。。。的返回值类型
             return JSONObject.parseObject(cache,returnType); //

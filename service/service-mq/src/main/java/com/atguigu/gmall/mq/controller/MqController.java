@@ -18,7 +18,7 @@ public class MqController {
         String exchange = "exchange.confirm";
         String routingKey = "routing.confirm";
         String message = "我是被发送的消息";
-        boolean b = rabbitService.sendMessage(exchange, routingKey, message);
+        rabbitService.sendMessage(exchange, routingKey, message);
         return "success";
     }
 }

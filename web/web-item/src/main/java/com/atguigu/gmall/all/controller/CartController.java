@@ -30,12 +30,14 @@ public class CartController {
     public String addCart(HttpServletRequest request,Long skuId,Integer skuNum){
 
         String userId = "";
-        userId = request.getHeader("userTempId");
+        String userTempId = "";
+        userTempId = request.getHeader("userTempId");
+
         if (!StringUtils.isEmpty(request.getHeader("userId"))){
             userId = request.getHeader("userId");
         }
         // 当俩种情况存在一种的时候，添加商品信息
-        if (!StringUtils.isEmpty(userId)){
+        if (!StringUtils.isEmpty(userId) || !StringUtils.isEmpty(userTempId)){
             // 将商品的skuId和数量传递给后台
             CartInfo cartInfo = new CartInfo();
             cartInfo.setSkuId(skuId);

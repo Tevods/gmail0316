@@ -23,7 +23,7 @@ public class ListApiController {
 
     @RequestMapping("onSale/{skuId}")
     void onSale(@PathVariable("skuId") String skuId){
-        listService.cancelSale(skuId);
+        listService.onSale(skuId);
     }
 
     @RequestMapping("cancelSale/{skuId}")

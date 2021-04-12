@@ -35,12 +35,13 @@ public class CartApiController {
     public Result cartList(HttpServletRequest request){
         // 前台异步请求商品信息，userId和userTempId是天台自行对ajax请求头添加的
         String userId = "";
-        userId = request.getHeader("userTempId");
+        String userTempId = "";
+        userTempId = request.getHeader("userTempId");
         if (StringUtils.isNotEmpty(request.getHeader("userId"))){
             userId = request.getHeader("userId");
         }
 
-        List<CartInfo> cartInfoList = cartService.cartList(userId);
+        List<CartInfo> cartInfoList = cartService.cartList(userId,userTempId);
 
         return Result.ok(cartInfoList);
     }
@@ -72,7 +73,8 @@ public class CartApiController {
 
     @RequestMapping("inner/getCartCheckedList/{userId}")
     List<CartInfo> getCartCheckedList(@PathVariable("userId") String userId){
-        List<CartInfo> cartInfoList = cartService.cartList(userId);
+        String userTempId = "";
+        List<CartInfo> cartInfoList = cartService.cartList(userId,userTempId);
         Iterator<CartInfo> iterator = cartInfoList.iterator();
         if (iterator.hasNext()){
             if (0 == iterator.next().getIsChecked()){

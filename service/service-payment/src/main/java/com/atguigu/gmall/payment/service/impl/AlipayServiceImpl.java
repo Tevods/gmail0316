@@ -51,7 +51,6 @@ public class AlipayServiceImpl implements AlipayService {
         map.put("product_code","FAST_INSTANT_TRADE_PAY");
         map.put("total_amount",0.01);
 
-
         List<OrderDetail> orderDetailList = orderInfo.getOrderDetailList();
         map.put("subject",orderDetailList.get(0).getSkuName().substring(0,20));
 

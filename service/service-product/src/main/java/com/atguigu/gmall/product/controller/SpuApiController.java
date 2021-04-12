@@ -67,7 +67,7 @@ public class SpuApiController {
         // 获取storage
         StorageClient storageClient = new StorageClient(connection,null);
         // 上传
-            //获取文件的后缀
+        // 获取文件的后缀
         String originalFilename = file.getOriginalFilename();
         int i = originalFilename.lastIndexOf(".");
         String substring = originalFilename.substring(i + 1);

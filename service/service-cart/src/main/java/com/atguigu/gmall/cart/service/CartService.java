@@ -7,7 +7,7 @@ import java.util.List;
 public interface CartService {
     void addCart(CartInfo cartInfo,String userId);
 
-    List<CartInfo> cartList(String userId);
+    List<CartInfo> cartList(String userId,String userTempId);
 
     void checkCart(Long skuId, Integer isChecked,String userId);
 
